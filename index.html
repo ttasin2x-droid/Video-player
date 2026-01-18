@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamFlow Ultimate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="aurora-bg"></div>
+        <div class="vignette"></div>
+        
+        <nav class="glass-nav">
+            <div class="brand">
+                <div class="logo-pulse">
+                    <svg viewBox="0 0 24 24" fill="none" class="logo-icon"><path d="M5 5L19 12L5 19V5Z" fill="currentColor"/></svg>
+                </div>
+                <span class="brand-name">StreamFlow <span class="tag">ULTIMATE</span></span>
+            </div>
+            <div class="nav-stats">
+                <div class="stat-item">
+                    <div class="signal-bars">
+                        <div class="bar" id="netBar1"></div>
+                        <div class="bar" id="netBar2"></div>
+                        <div class="bar" id="netBar3"></div>
+                    </div>
+                    <span id="networkSpeed">Ready</span>
+                </div>
+            </div>
+        </nav>
+
+        <main class="stage">
+            <div class="input-zone" id="urlSection">
+                <h1 class="hero-text">Next Gen<br>Streaming</h1>
+                
+                <div class="search-capsule">
+                    <input type="text" id="videoUrl" placeholder="Paste video link here..." autocomplete="off">
+                    <button id="loadBtn" class="launch-btn">
+                        <span>LAUNCH</span>
+                        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M5 12h14M12 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                    </button>
+                </div>
+                
+                <div class="toggles">
+                    <label class="switch-wrapper">
+                        <input type="checkbox" id="useProxy">
+                        <span class="switch-slider"></span>
+                        <span class="switch-label">Proxy Node</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="theater" id="playerSection">
+                <div class="ambilight-glow"></div>
+                
+                <div class="player-frame" id="playerContainer">
+                    <video id="videoPlayer" playsinline preload="auto"></video>
+
+                    <div class="osd-layer">
+                        <div class="osd-icon" id="osdPlay"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7z"/></svg></div>
+                        <div class="osd-icon" id="osdPause"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></div>
+                        <div class="osd-icon" id="osdVolUp"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></div>
+                        <div class="osd-icon" id="osdVolDown"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z"/></svg></div>
+                        <div class="osd-icon" id="osdForward"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"/></svg><span class="osd-text">+10s</span></div>
+                        <div class="osd-icon" id="osdRewind"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z"/></svg><span class="osd-text">-10s</span></div>
+                        <div class="osd-loader" id="loadingOverlay"><div class="spinner"></div></div>
+                        <div class="osd-error" id="errorOverlay">
+                            <span>Connection Failed</span>
+                            <button id="retryBtn">Retry</button>
+                        </div>
+                    </div>
+
+                    <div class="controls-glass" id="controls">
+                        <div class="timeline-area" id="progressContainer">
+                            <div class="timeline-bg"></div>
+                            <div class="timeline-buffer" id="progressBuffer"></div>
+                            <div class="timeline-fill" id="progressPlayed">
+                                <div class="timeline-head"></div>
+                            </div>
+                            <div class="timeline-time" id="progressTooltip">0:00</div>
+                        </div>
+
+                        <div class="controls-row">
+                            <div class="left-actions">
+                                <button class="btn-icon" id="playPauseBtn">
+                                    <svg class="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
+                                    <svg class="i-pause" viewBox="0 0 24 24"><path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                                </button>
+                                
+                                <div class="volume-hybrid">
+                                    <button class="btn-icon" id="muteBtn">
+                                        <svg class="i-vol-high" viewBox="0 0 24 24"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                                        <svg class="i-vol-mute" viewBox="0 0 24 24"><path fill="currentColor" d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3z"/></svg>
+                                    </button>
+                                    <input type="range" class="vol-slider" id="volumeSlider" min="0" max="1" step="0.05" value="1">
+                                </div>
+
+                                <div class="time-stamp">
+                                    <span id="currentTime">0:00</span><span class="divider">/</span><span id="duration">0:00</span>
+                                </div>
+                            </div>
+
+                            <div class="center-visualizer">
+                                <span></span><span></span><span></span><span></span><span></span>
+                            </div>
+
+                            <div class="right-actions">
+                                <button class="btn-icon" id="settingsBtn">
+                                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L3.16 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.04.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.57 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+                                </button>
+                                <button class="btn-icon" id="pipBtn"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M19 11h-8v6h8v-6zm4 8V4.98C23 3.88 22.1 3 21 3H3c-1.1 0-2 .88-2 1.98V19c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2zm-2 .02H3V4.97h18v14.05z"/></svg></button>
+                                <button class="btn-icon" id="fullscreenBtn">
+                                    <svg class="i-expand" viewBox="0 0 24 24"><path fill="currentColor" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                                    <svg class="i-compress" viewBox="0 0 24 24"><path fill="currentColor" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-14v3h3v2h-5V5z"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-modal" id="settingsMenu">
+                        <div class="settings-header">Playback Settings</div>
+                        <div class="settings-group">
+                            <label>Speed</label>
+                            <div class="speed-grid">
+                                <button class="speed-opt" data-speed="0.5">0.5x</button>
+                                <button class="speed-opt active" data-speed="1">Normal</button>
+                                <button class="speed-opt" data-speed="1.5">1.5x</button>
+                                <button class="speed-opt" data-speed="2">2x</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="big-play-btn" id="bigPlayBtn">
+                        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
+                    </button>
+                </div>
+
+                <button class="back-pill" id="backBtn">
+                    <svg viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="currentColor" stroke-width="2" d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                    <span>Back</span>
+                </button>
+            </div>
+        </main>
+        
+        <input type="file" id="timeInput" style="display:none">
+        <button id="timeGoBtn" style="display:none"></button>
+        <button id="skipBackBtn" style="display:none"></button>
+        <button id="skipForwardBtn" style="display:none"></button>
+    </div>
+
+    <script src="player.js"></script>
+</body>
+</html>
